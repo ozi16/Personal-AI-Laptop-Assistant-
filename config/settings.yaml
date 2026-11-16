@@ -1,0 +1,52 @@
+# NEXUS configuration.
+# Restart the dashboard after changing this file.
+
+monitoring:
+  intervals:
+    # How often each reader may call the operating system.
+    cpu_ram_seconds: 5
+    process_seconds: 10
+    disk_seconds: 30
+    # How often a snapshot is written to SQLite.
+    persist_seconds: 30
+  # Blocking sample used by psutil so CPU percent is not stuck at 0.
+  cpu_sample_interval_seconds: 0.1
+  process_top_n: 10
+  history_retention_days: 7
+  drives:
+    - C:/
+    - D:/
+
+thresholds:
+  # Usage percent. warning <= value < critical is warning; value >= critical is critical.
+  cpu:
+    warning: 70
+    critical: 90
+  ram:
+    warning: 70
+    critical: 85
+  # Free percent. value < critical is critical; critical <= value <= warning is warning.
+  disk_free:
+    warning: 20
+    critical: 10
+
+database:
+  path: database/nexus.db
+
+dashboard:
+  refresh_seconds: 5
+  history_hours: 24
+
+logging:
+  level: INFO
+  path: logs/nexus.log
+
+file_organizer:
+  # Files at or above this size are reported as large. 100 MB.
+  large_file_bytes: 104857600
+  max_files: 5000
+  max_depth: 6
+  hash_chunk_bytes: 1048576
+  # Rows per SQLite statement. The repository also caps this at 80 so an
+  # 8-column insert stays under SQLite's default 999-variable limit.
+  batch_size: 80

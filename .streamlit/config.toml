@@ -1,0 +1,8 @@
+[browser]
+gatherUsageStats = false
+
+[server]
+# This laptop monitor must not be reachable from the network.
+address = "127.0.0.1"
+# Database writes and log files must not retrigger a Streamlit rerun.
+folderWatchBlacklist = ["**/.venv/**", "**/database/**", "**/logs/**", "**/__pycache__/**"]
